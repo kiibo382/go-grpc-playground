@@ -12,8 +12,9 @@ import (
 func main() {
 	fmt.Println("start Rock-paper-scissors game.")
 	scanner := bufio.NewScanner(os.Stdin)
+	is_finished := false
 
-	for {
+	for !is_finished {
 		fmt.Println("1: play game")
 		fmt.Println("2: show match results")
 		fmt.Println("3: exit")
@@ -38,20 +39,15 @@ func main() {
 				service.PlayGame(int32(handShapes))
 			default:
 				fmt.Println("Invalid command.")
-				continue
 			}
-			continue
 		case "2":
 			fmt.Println("Here are your match results.")
 			service.ReportMatchResults()
-			continue
 		case "3":
 			fmt.Println("bye.")
-			goto M
+			is_finished = true
 		default:
 			fmt.Println("Invalid command.")
-			continue
 		}
 	}
-M:
 }
