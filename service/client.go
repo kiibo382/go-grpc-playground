@@ -32,20 +32,17 @@ func PlayGame(handShapes int32) {
 	)
 	defer cancel()
 
-	// 自動生成されたコードからgRPCのクライアントとリクエストを生成します。
 	client := pb.NewRockPaperScissorsServiceClient(conn)
 	playRequest := pb.PlayRequest{
 		HandShapes: apis.EncodeHandShapes(handShapes),
 	}
 
-	// gRPCサーバーの`PlayGame`メソッドを呼び出します。
 	reply, err := client.PlayGame(ctx, &playRequest)
 	if err != nil {
 		log.Fatal("Request failed.")
 		return
 	}
 
-	// レスポンスを標準出力に表示します。
 	marchResult := reply.GetMatchResult()
 	fmt.Println("***********************************")
 	fmt.Printf("Your hand shapes: %s \n", marchResult.YourHandShapes.String())
@@ -74,18 +71,15 @@ func ReportMatchResults() {
 	)
 	defer cancel()
 
-	// 自動生成されたコードからgRPCのクライアントとリクエストを生成します。
 	client := pb.NewRockPaperScissorsServiceClient(conn)
 	reportRequest := pb.ReportRequest{}
 
-	// gRPCサーバーの`ReportMatchResults`メソッドを呼び出します。
 	reply, err := client.ReportMatchResults(ctx, &reportRequest)
 	if err != nil {
 		log.Fatal("Request failed.")
 		return
 	}
 
-	// レスポンスを標準出力に表示します。
 	report := reply.GetReport()
 	if len(report.MatchResults) == 0 {
 		fmt.Println("***********************************")
